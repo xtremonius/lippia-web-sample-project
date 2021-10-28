@@ -7,22 +7,6 @@ import lippia.web.services.PracticaLippiaWebService;
 
 public class PracticaLippiaWebSteps extends PageSteps {
 
-//    @Given("el usuario navega a la web de Automation Practice")
-//    public void elUsuarioNavegaALaWebDeAutomationPractice() {
-//        PracticaLippiaWebService.navegarWeb();
-//    }
-//
-//    @When("^el usuario pulsa el botón \"(.*)\"$")
-//    public void elUsuarioPulsaElBotón(String boton) {
-//        PracticaLippiaWebService.clickButton();
-//    }
-//
-//    @Then("el usuario verifica que se enseña la pagina de Sign in")
-//    public void elUsuarioVerificaQueSeEnseñaLaPaginaDeSignIn() {
-//        PracticaLippiaWebService.verificarSignInPage();
-//    }
-
-
     @Given("el alumno navega a la web de Automation Practice")
     public void elAlumnoNavegaALaWebDeAutomationPractice() {
         PracticaLippiaWebService.navegarWeb();

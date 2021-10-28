@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import java.util.List;
+import java.util.Locale;
 
 import static com.crowdar.core.actions.WebActionManager.*;
 
@@ -37,25 +38,13 @@ public class PracticaLippiaWebService extends ActionManager {
     }
 
     public static void verificarSearchInPage(){
-        String span_text = getText(PracticaLippiaWebConstants.SPAN_SEARCH_XPATH);
-        span_text = span_text.substring(1, span_text.length()-1);
         waitVisibility(PracticaLippiaWebConstants.SPAN_SEARCH_XPATH);
         Assert.assertTrue(isVisible(PracticaLippiaWebConstants.SPAN_SEARCH_XPATH));
-//        System.out.println("************************METODO verificarSearchInPage()*****************************");
-//        List<WebElement> elementos = getElements(PracticaLippiaWebConstants.DIV_PRODUCTS_XPATH);
-//
-//        System.out.println("Valor de UL Productos: "+getAttribute(PracticaLippiaWebConstants.UL_PRODUCTS_XPATH,"innerText"));
-//        for(WebElement e:elementos){
-//            System.out.println(e.getText());
-//            System.out.println("***************");
-//        }
-//        //System.out.println(elementos.get(0).getText());
-//        System.out.println("*************************************************************************************");
-        Assert.assertEquals(getAttribute(PracticaLippiaWebConstants.INPUT_SEARCH_XPATH,"value"),span_text,"No se encuentra la busqueda para el producto");
-
-
-
-
+        String span_text = getText(PracticaLippiaWebConstants.SPAN_SEARCH_XPATH);
+        String input_search = getAttribute(PracticaLippiaWebConstants.INPUT_SEARCH_XPATH,"value");
+        span_text = span_text.substring(1, span_text.length()-1);
+        input_search = input_search.toUpperCase();
+        Assert.assertEquals(input_search,span_text,"No se encuentra la busqueda para el producto");
 
     }
 

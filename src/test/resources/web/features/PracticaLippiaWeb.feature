@@ -1,18 +1,9 @@
-#Feature: Como usuario, quiero navegar al sign in de la web Automation practice
-#
-#  @Smoke
-#  Scenario: El usuario navega a "Sign in"
-#    Given el usuario navega a la web de Automation Practice
-#    When el usuario pulsa el botón "Sign in"
-#    Then el usuario verifica que se enseña la pagina de Sign in
-#
-
 Feature: Como alumno de QA automation, quiero resolver el ejercicio de Practica Lippia Web
 
   @Smoke
   Scenario: Se alumno realiza una búsqueda en el campo "SEARCH"
     Given el alumno navega a la web de Automation Practice
-    When el alumno realiza una busqueda del producto "HAT"
+    When el alumno realiza una busqueda del producto "dress"
     And el alumno presiona el boton "SEARCH"
     Then el alumno verifica que el resultado de la busqueda en search sea el mismo ingresado en el input
 
