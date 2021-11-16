@@ -7,10 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 import static com.crowdar.core.actions.WebActionManager.*;
+
 
 public class PracticaLippiaWebService extends ActionManager {
 
@@ -37,14 +37,13 @@ public class PracticaLippiaWebService extends ActionManager {
         click(PracticaLippiaWebConstants.BUTTON_SEARCH_XPATH);
     }
 
-    public static void verificarSearchInPage(){
+    public static void verificarSearchInPage(String produc){
         waitVisibility(PracticaLippiaWebConstants.SPAN_SEARCH_XPATH);
         Assert.assertTrue(isVisible(PracticaLippiaWebConstants.SPAN_SEARCH_XPATH));
         String span_text = getText(PracticaLippiaWebConstants.SPAN_SEARCH_XPATH);
-        String input_search = getAttribute(PracticaLippiaWebConstants.INPUT_SEARCH_XPATH,"value");
         span_text = span_text.substring(1, span_text.length()-1);
-        input_search = input_search.toUpperCase();
-        Assert.assertEquals(input_search,span_text,"No se encuentra la busqueda para el producto");
+        produc = produc.toUpperCase();
+        Assert.assertEquals(produc,span_text,"No se encuentra la busqueda para el producto");
 
     }
 
@@ -66,55 +65,30 @@ public class PracticaLippiaWebService extends ActionManager {
         Assert.assertEquals(getText(PracticaLippiaWebConstants.H1_MYACCOUNT_XPATH), "MY ACCOUNT","Error de login");
     }
 
-    public static void clickButtonSort(String sortBy){
-       /* waitVisibility(PracticaLippiaWebConstants.SELECT_SORT_XPATH);
-        Assert.assertTrue(isVisible(PracticaLippiaWebConstants.SELECT_SORT_XPATH));*/
 
-        System.out.println("*******************METODO clickButtonSort() INICIO******************************************");
-        List<WebElement> elementos_inicial = getElements(PracticaLippiaWebConstants.DIV_PRODUCTS_XPATH);
-        for(WebElement e:elementos_inicial){
-            System.out.println(e.getText());
-            //System.out.println("****************");
+    public static void clickButtonViewList() {
+        click(PracticaLippiaWebConstants.VIEW_LIST_XPATH);
+    }
+
+    public static void clickButtonShort(String sortby) {
+        Select s = new Select(getElement(PracticaLippiaWebConstants.SELECT_SORT_XPATH));
+        s.selectByVisibleText(sortby);
+
+    }
+
+
+    public static void checkOrder() {
+        waitVisibility(PracticaLippiaWebConstants.DIV_PRODUCTS_XPATH);
+        List<WebElement> productosString = getElements(PracticaLippiaWebConstants.DIV_PRODUCTS_XPATH);
+        List<Double> productosPrecioFormat = new ArrayList<>();
+        for (WebElement e : productosString){
+            String str = e.getText().substring(1);
+            double d = Double.parseDouble(str);
+            productosPrecioFormat.add(d);
         }
-        System.out.println("*************************************************************************************");
-
-        /**
-         * Intrucciones para leer los valores del select
-         *
-        List<WebElement> miSelect = getElements(PracticaLippiaWebConstants.SELECT_SORT_XPATH);
-        System.out.println("************Valores del select*******************");
-        for(WebElement e:miSelect){
-            System.out.println(e.getText());
-
-        }
-        System.out.println("*************************************************");*/
-
-
-        waitVisibility(PracticaLippiaWebConstants.DIV_SORT_XPATH);
-        Assert.assertTrue(isVisible(PracticaLippiaWebConstants.DIV_SORT_XPATH));
-        System.out.println("****************Presionando el DropDown*****************************");
-
-
-
-
-        setDropdownByText(PracticaLippiaWebConstants.SELECT_SORT_XPATH, sortBy);
-        //waitInvisibility(PracticaLippiaWebConstants.UL_PRODUCTS_XPATH);
-
-
-        System.out.println("****************Esperando el DIV_PRODUCTS_XPATH*****************************");
-        waitVisibility((PracticaLippiaWebConstants.DIV_PRODUCTS_XPATH));
-        Assert.assertTrue((isVisible(PracticaLippiaWebConstants.DIV_PRODUCTS_XPATH)));
-        System.out.println("*************************************************");
-
-        System.out.println("*******************METODO clickButtonSort() al Final******************************************");
-        List<WebElement> elementos_final = getElements(PracticaLippiaWebConstants.DIV_PRODUCTS_XPATH);
-        for(WebElement e:elementos_final){
-            System.out.println(e.getText());
-            //System.out.println("****************");
-        }
-        System.out.println("*************************************************************************************");
-
-
+        ArrayList<Double> productosPrecioFormatCopy = new ArrayList<Double>(productosPrecioFormat);
+        Collections.sort(productosPrecioFormat);
+        Assert.assertTrue(productosPrecioFormat.equals(productosPrecioFormatCopy), "Los productos no se encuentra ordenados");
 
     }
 }

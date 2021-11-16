@@ -2,7 +2,6 @@ package lippia.web.steps;
 
 import com.crowdar.core.PageSteps;
 import io.cucumber.java.en.*;
-import lippia.web.constants.PracticaLippiaWebConstants;
 import lippia.web.services.PracticaLippiaWebService;
 
 public class PracticaLippiaWebSteps extends PageSteps {
@@ -12,27 +11,12 @@ public class PracticaLippiaWebSteps extends PageSteps {
         PracticaLippiaWebService.navegarWeb();
     }
 
-    @When("^el alumno realiza una busqueda del producto \"(.*)\"$")
-    public void elAlumnoRealizaUnaBusquedaDelProducto(String campo) {
-        PracticaLippiaWebService.setCampoSearch(campo);
-    }
-
-    @And("^el alumno presiona el boton \"(.*)\"$")
-    public void elAlumnoPresionaElBoton(String boton) {
+    @When("^el alumno realiza una busqueda del \"(.*)\"$")
+    public void elAlumnoRealizaUnaBusquedaDelProducto(String producto) {
+        PracticaLippiaWebService.setCampoSearch(producto);
         PracticaLippiaWebService.clickButtonSearch();
     }
 
-    @Then("el alumno verifica que el resultado de la busqueda en search sea el mismo ingresado en el input")
-    public void elAlumnoVerificaQueElResultadoDeLaBusquedaEnSearchSeaElMismoIngresadoEnElInput() {
-        PracticaLippiaWebService.verificarSearchInPage();
-
-    }
-
-
-    @When("^el alumno pulsa el boton \"(.*)\"$")
-    public void elAlumnoPulsaElBoton(String boton) {
-        PracticaLippiaWebService.clickButtonSignIn();
-    }
 
     @And("el alumno carga el email \"(.*)\" en el campo email address$")
     public void elAlumnoCargaElEmailEnElCampoEmailAddress(String email) {
@@ -55,8 +39,29 @@ public class PracticaLippiaWebSteps extends PageSteps {
     }
 
 
-    @And("^el alumno presiona el boton de ordenar \"(.*)\"$")
-    public void elAlumnoPresionaElBotonDeOrdenar(String sortBy) {
-        PracticaLippiaWebService.clickButtonSort(sortBy);
+    @Then("el alumno verifica que el resultado de la busqueda en search sea el mismo ingresado en el input \"(.*)\"$")
+    public void elAlumnoVerificaQueElResultadoDeLaBusquedaEnSearchSeaElMismoIngresadoEnElInputProducto(String producto) {
+        PracticaLippiaWebService.verificarSearchInPage(producto);
+    }
+
+    @When("el alumno pulsa el boton Sign in")
+    public void elAlumnoPulsaElBotonSignIn() {
+        PracticaLippiaWebService.clickButtonSignIn();
+    }
+
+    @And("el alumno presiona el boton view list")
+    public void elAlumnoPresionaElBotonViewList() {
+        PracticaLippiaWebService.clickButtonViewList();
+    }
+
+    @Then("el alumno verifica que el orden de los productos")
+    public void elAlumnoVerificaQueElOrdenDeLosProductos() {
+        PracticaLippiaWebService.checkOrder();
+    }
+
+
+    @And("el alumno presiona el boton de ordenar por \"(.*)\"")
+    public void elAlumnoPresionaElBotonDeOrdenarPorSortby(String sortby) {
+        PracticaLippiaWebService.clickButtonShort(sortby);
     }
 }
